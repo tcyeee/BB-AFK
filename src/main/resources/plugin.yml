@@ -1,0 +1,6 @@
+name: pluginBenBen
+version: '${project.version}'
+main: top.tcyeee.minecraft
+api-version: 1.15
+authors: [ tcyeee ]
+description: just demo
