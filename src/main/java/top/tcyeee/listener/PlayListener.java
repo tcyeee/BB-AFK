@@ -1,9 +1,11 @@
 package top.tcyeee.listener;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 /**
  * @author tcyeee
@@ -11,9 +13,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
  */
 public class PlayListener implements Listener {
     @EventHandler
-    public void event(PlayerMoveEvent event) {
-        System.out.println("玩家开始了移动");
-        System.out.println(event.toString());
+    public void event(PlayerSwapHandItemsEvent event) {
+        Player player = event.getPlayer();
+        player.setAllowFlight(true);
+        player.giveExpLevels(50);
+        player.sendMessage(ChatColor.BLUE + "you can fly now!");
     }
 
     @EventHandler
@@ -24,9 +28,7 @@ public class PlayListener implements Listener {
 
     // 玩家移动 => ehcache存值 {user,5分钟过期}
 
-
-
-
     // 定时任务
     // 每间隔1分钟查询一次redis, 比对playerlist和redis差值,其中没有的,存入缓存2,设置为挂机状态
+    //
 }
