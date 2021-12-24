@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
+
     <!-- 活跃缓存 存入活跃玩家信息(五分钟无动作设置为挂机状态) -->
     <cache name="active"
-           timeToIdleSeconds="5"
-           timeToLiveSeconds="2"
            eternal="false"
-           overflowToDisk="false"
-
-           maxEntriesLocalHeap="10000"
-           maxBytesLocalHeap="10M"
-           memoryStoreEvictionPolicy="LRU"/>
+           timeToIdleSeconds="2"
+           timeToLiveSeconds="2"
+           maxElementsInMemory="1000"
+           memoryStoreEvictionPolicy="FIFO"/>
 
     <!-- 挂机缓存 存入挂机玩家信息 -->
     <cache name="afk"
            eternal="false"
-           timeToIdleSeconds="120"
-           timeToLiveSeconds="120"
-           overflowToDisk="false"
-
-           maxEntriesLocalHeap="10000"
-           maxBytesLocalHeap="10M"
-           memoryStoreEvictionPolicy="LRU"/>
+           timeToIdleSeconds="2"
+           timeToLiveSeconds="2"
+           maxElementsInMemory="1000"
+           memoryStoreEvictionPolicy="FIFO"/>
 
     <!-- 默认缓存 -->
     <defaultCache
             eternal="false"
-            timeToIdleSeconds="5"
-            timeToLiveSeconds="5"
+            timeToIdleSeconds="2"
+            timeToLiveSeconds="2"
             maxEntriesLocalDisk="10000000"
-            diskExpiryThreadIntervalSeconds="120"
-
             maxEntriesLocalHeap="10000"
             maxBytesLocalHeap="10M"
+            diskExpiryThreadIntervalSeconds="120"
             memoryStoreEvictionPolicy="LRU">
         <persistence strategy="localTempSwap"/>
     </defaultCache>
