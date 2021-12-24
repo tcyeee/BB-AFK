@@ -61,16 +61,24 @@
     </repositories>
 
     <dependencies>
+        <!-- 服务器API -->
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <!-- spring boot -->
         <dependency>
-            <groupId>org.ehcache</groupId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <!-- 缓存 -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>3.8.1</version>
+            <version>2.10.9.2</version>
         </dependency>
     </dependencies>
 </project>

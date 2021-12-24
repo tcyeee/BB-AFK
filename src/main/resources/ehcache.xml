@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+<ehcache>
+    <!-- 活跃缓存 存入活跃玩家信息(五分钟无动作设置为挂机状态) -->
+    <cache name="active"
+           timeToIdleSeconds="5"
+           timeToLiveSeconds="2"
+           eternal="false"
+           overflowToDisk="false"
+           memoryStoreEvictionPolicy="LRU"/>
 
-    <!-- 磁盘缓存位置 -->
-    <diskStore path="java.io.tmpdir/ehcache"/>
+    <!-- 挂机缓存 存入挂机玩家信息 -->
+    <cache name="afk"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="false"
+           memoryStoreEvictionPolicy="LRU"/>
 
     <!-- 默认缓存 -->
     <defaultCache
@@ -17,15 +28,6 @@
         <persistence strategy="localTempSwap"/>
     </defaultCache>
 
-    <!-- helloworld缓存 -->
-    <cache name="afk"
-           maxElementsInMemory="1000"
-           eternal="false"
-           timeToIdleSeconds="5"
-           timeToLiveSeconds="5"
-           overflowToDisk="false"
-           memoryStoreEvictionPolicy="LRU"/>
-
-
-
+    <!-- 磁盘缓存位置(未启用) -->
+    <diskStore path="java.io.tmpdir/ehcache"/>
 </ehcache>
