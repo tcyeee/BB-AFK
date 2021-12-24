@@ -3,10 +3,12 @@ package top.tcyeee.utils;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.Configuration;
 import org.bukkit.entity.Player;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 
+import java.io.InputStream;
 import java.util.Set;
 
 /**
@@ -25,7 +27,8 @@ public final class EhCacheUtil {
     static Cache activeCache;
 
     static {
-        cacheManager = CacheManager.create();
+        final InputStream resourceAsStream = EhCacheUtil.class.getClassLoader().getResourceAsStream("ehcache.xml");
+        cacheManager = CacheManager.create(resourceAsStream);
         activeCache = cacheManager.getCache(status.active.name());
         afkCache = cacheManager.getCache(status.afk.name());
     }

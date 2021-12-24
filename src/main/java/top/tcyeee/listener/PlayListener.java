@@ -1,5 +1,6 @@
 package top.tcyeee.listener;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -16,6 +17,7 @@ public class PlayListener implements Listener {
     @EventHandler
     public void event(PlayerSwapHandItemsEvent event) {
         EhCacheUtil.setActive(event.getPlayer());
+        event.getPlayer().sendMessage(ChatColor.YELLOW + "切换为活跃状态");
     }
     // 玩家移动 => ehcache存值 {user,5分钟过期}
     // 定时任务
@@ -27,6 +29,7 @@ public class PlayListener implements Listener {
     // 进入服务器
     @EventHandler
     public void event(PlayerJoinEvent event) {
+        System.out.println(event.getPlayer().getDisplayName() + "进入了游戏!");
         // 进入服务器时候,设置用户为活跃状态
         EhCacheUtil.setActive(event.getPlayer());
     }

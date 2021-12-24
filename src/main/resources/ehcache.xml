@@ -6,6 +6,9 @@
            timeToLiveSeconds="2"
            eternal="false"
            overflowToDisk="false"
+
+           maxEntriesLocalHeap="10000"
+           maxBytesLocalHeap="10M"
            memoryStoreEvictionPolicy="LRU"/>
 
     <!-- 挂机缓存 存入挂机玩家信息 -->
@@ -14,16 +17,21 @@
            timeToIdleSeconds="120"
            timeToLiveSeconds="120"
            overflowToDisk="false"
+
+           maxEntriesLocalHeap="10000"
+           maxBytesLocalHeap="10M"
            memoryStoreEvictionPolicy="LRU"/>
 
     <!-- 默认缓存 -->
     <defaultCache
-            maxEntriesLocalHeap="10000"
             eternal="false"
-            timeToIdleSeconds="120"
-            timeToLiveSeconds="120"
+            timeToIdleSeconds="5"
+            timeToLiveSeconds="5"
             maxEntriesLocalDisk="10000000"
             diskExpiryThreadIntervalSeconds="120"
+
+            maxEntriesLocalHeap="10000"
+            maxBytesLocalHeap="10M"
             memoryStoreEvictionPolicy="LRU">
         <persistence strategy="localTempSwap"/>
     </defaultCache>
