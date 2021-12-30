@@ -16,10 +16,10 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        System.out.println("plugin benben start success !");
 
         // 添加轮询任务
         schedule();
-        System.out.println("plugin benben start success !");
 
         // 添加监听
         getServer().getPluginManager().registerEvents(new PlayListener(), this);
