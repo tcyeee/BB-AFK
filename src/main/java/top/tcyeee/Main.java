@@ -55,8 +55,8 @@ public final class Main extends JavaPlugin {
             if (player == null) {
                 player = getServer().getPlayer(UUID.fromString(uuid));
                 if (player != null) {
-                    getLogger().info("当前有" + player.getDisplayName() + "人挂机");
-                    getLogger().info(EhCacheUtil.keys(EhCacheUtil.status.afk).size() + "");
+                    getLogger().info(player.getDisplayName() + "挂机了");
+                    getLogger().info("当前有" + EhCacheUtil.keys(EhCacheUtil.status.afk).size() + "人挂机");
                     EhCacheUtil.set(EhCacheUtil.status.afk, player.getUniqueId().toString(), player);
                 }
             } else {
