@@ -23,14 +23,12 @@ public class PlayListener implements Listener {
     // 进入服务器 => 设为活跃
     @EventHandler
     public void event(PlayerJoinEvent event) {
-        System.out.println(event.getPlayer().getDisplayName() + "进入了游戏!");
         EhCacheUtil.setActive(event.getPlayer());
     }
 
     // 退出服务器 => 删除挂机
     @EventHandler
     public void event(PlayerQuitEvent event) {
-        System.out.println(event.getPlayer().getDisplayName() + "离开了游戏!");
         EhCacheUtil.back(event.getPlayer());
     }
 
@@ -40,14 +38,10 @@ public class PlayListener implements Listener {
     // 玩家切换左右手事件
     @EventHandler
     public void event(PlayerSwapHandItemsEvent event) {
-        EhCacheUtil.setActive(event.getPlayer());
-        event.getPlayer().sendMessage(ChatColor.YELLOW + "切换为活跃状态");
     }
 
     // 玩家丢弃物品
     @EventHandler
     public void event(PlayerDropItemEvent event) {
-        EhCacheUtil.findAll(EhCacheUtil.status.active);
-        System.out.println("玩家丢弃了物品");
     }
 }

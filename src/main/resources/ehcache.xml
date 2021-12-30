@@ -4,16 +4,14 @@
     <!-- 活跃缓存 存入活跃玩家信息(五分钟无动作设置为挂机状态) -->
     <cache name="active"
            eternal="false"
-           timeToIdleSeconds="2"
-           timeToLiveSeconds="2"
+           timeToLiveSeconds="5"
            maxElementsInMemory="1000"
            memoryStoreEvictionPolicy="FIFO"/>
 
     <!-- 挂机缓存 存入挂机玩家信息 -->
     <cache name="afk"
            eternal="false"
-           timeToIdleSeconds="2"
-           timeToLiveSeconds="2"
+           timeToLiveSeconds="86400"
            maxElementsInMemory="1000"
            memoryStoreEvictionPolicy="FIFO"/>
 

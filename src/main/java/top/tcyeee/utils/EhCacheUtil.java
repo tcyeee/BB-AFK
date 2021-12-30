@@ -7,7 +7,9 @@ import org.bukkit.entity.Player;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * 缓存工具类
@@ -43,7 +45,7 @@ public final class EhCacheUtil {
      * @param player 活跃用户
      */
     public static void setActive(Player player) {
-        activeCache.put(new Element(player.getDisplayName(), player));
+        activeCache.put(new Element(player.getUniqueId().toString(), player));
     }
 
     /**
@@ -52,7 +54,7 @@ public final class EhCacheUtil {
      * @param player 挂机玩家
      */
     public static void setAfk(Player player) {
-        afkCache.put(new Element(player.getDisplayName(), player));
+        afkCache.put(new Element(player.getUniqueId().toString(), player));
     }
 
     /**
@@ -61,8 +63,22 @@ public final class EhCacheUtil {
      * @param player 脱离挂机状态的玩家
      */
     public static void back(Player player) {
-        afkCache.remove(player.getDisplayName());
+        afkCache.remove(player.getUniqueId().toString());
     }
+
+
+    /**
+     * 从挂机缓存池中移除
+     *
+     * @param uuid 脱离挂机状态的玩家的UUID
+     * @return 挂机玩家
+     */
+    public static Player getAfk(String uuid) {
+        Element element = afkCache.get(uuid);
+        boolean notNull = element != null && element.getObjectValue() != null;
+        return notNull ? (Player) element.getObjectValue() : null;
+    }
+
 
     /**
      * 根据玩家状态查看所有此状态玩家
@@ -71,20 +87,21 @@ public final class EhCacheUtil {
      * @return 玩家名称列表
      */
     public static Set<String> findAll(status status) {
-        System.out.println(activeCache.getKeys().size());
-//        if (activeCache.getKeys().size() > 0) {
-//            Object o = activeCache.getKeys().get(0);
-//            System.out.println(o.toString());
-//            System.out.println(activeCache.get("tcyeee"));
-//            System.out.println(activeCache.get("tcyeee").getExpirationTime());
-//            System.out.println("该缓存创建时间:" + activeCache.get("tcyeee").getCreationTime());
-//            System.out.println("该缓存过期时间:" + activeCache.get("tcyeee").getExpirationTime());
-//        }
+        Cache cache = status == EhCacheUtil.status.afk ? afkCache : activeCache;
+        return new HashSet<String>(cache.getKeys());
+    }
 
-//        Cache cache = status == EhCacheUtil.status.afk ? afkCache : activeCache;
-//        List keys = cache.getKeys();
-//        System.out.println(keys.size());
-        return null;
+
+    // 存值
+    public static void set(String key, String value) {
+        activeCache.put(new Element(key, value));
+    }
+
+    // 取值
+    public static <T> T get(String uuid) {
+        Element element = activeCache.get(uuid);
+        boolean notNull = element != null && element.getObjectValue() != null;
+        return notNull ? (T) element.getObjectValue() : null;
     }
 }
 

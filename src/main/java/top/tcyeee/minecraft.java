@@ -1,20 +1,21 @@
 package top.tcyeee;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.tcyeee.listener.PlayListener;
 import top.tcyeee.utils.EhCacheUtil;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public final class minecraft extends JavaPlugin {
 
     @Override
     public void onEnable() {
         // 添加轮询任务
-        timer2();
+        schedule();
 
-        System.out.println("插件加载成功");
+        System.out.println("plugin benben start success !");
 
         // 添加监听
         getServer().getPluginManager().registerEvents(new PlayListener(), this);
@@ -32,7 +33,7 @@ public final class minecraft extends JavaPlugin {
      * 1.比对playerlist和缓存的差值,其中没有的,存入挂机缓存{user,setTime},表示为挂机状态
      * 2.查询挂机缓存, 挂机时间与当前时间差值为 n 的倍数, 则给与经验x,金币x
      */
-    public void timer2() {
+    public void schedule() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             public void run() {
@@ -41,11 +42,36 @@ public final class minecraft extends JavaPlugin {
         }, 1000, 1000);
     }
 
+
     private void checkUserStatus() {
-        System.out.println("[轮询] =====");
-        // 1. 计算挂机玩家  = 全部玩家 - 活跃玩家
-        EhCacheUtil.findAll(EhCacheUtil.status.active);
-        EhCacheUtil.findAll(EhCacheUtil.status.afk);
-        // 2. 查询所有挂机玩家挂机时间, 距离现在为5的整数倍, 则给予经验和金币
+        // 1.选择挂机玩家, 加入挂机缓存 因为ehcache不会删除不活跃获取元素的特性, 这里需要直接查询, 如果value为null, 则表示超时
+        Set<String> active = EhCacheUtil.findAll(EhCacheUtil.status.active);
+        active.forEach(uuid -> {
+            Player player = EhCacheUtil.get(uuid);
+            if (player == null) {
+                player = getServer().getPlayer(UUID.fromString(uuid));
+                if (player != null) {
+                    player.sendMessage(ChatColor.RED + "你挂机了");
+                    EhCacheUtil.setAfk(player);
+                }
+            } else {
+                // 删除挂机状态
+                EhCacheUtil.back(player);
+            }
+        });
+
+        // 2.查询所有挂机玩家挂机时间, 距离现在为5的整数倍, 则给予经验和金币
+        int currentMin = Calendar.getInstance().get(Calendar.SECOND);
+        if (currentMin % 5 == 0) {
+            Set<String> afk = EhCacheUtil.findAll(EhCacheUtil.status.afk);
+            System.out.println("当前有" + afk.size() + "人挂机");
+            afk.forEach(uuid -> {
+                Player player = EhCacheUtil.getAfk(uuid);
+                if (player != null) {
+                    player.sendMessage(ChatColor.BLUE + "给你亿点经验");
+                    player.giveExp(10);
+                }
+            });
+        }
     }
 }
