@@ -32,7 +32,7 @@ public final class EhCacheUtil {
         afkCache = cacheManager.getCache(status.afk.name());
 
         // 创建活跃缓存
-        long ackTime = ConfigManager.getConfig().getLong("afk-gift-cycle");
+        long ackTime = ConfigManager.getConfig().getLong("afk-time");
         Cache memoryOnlyCache = new Cache(status.active.name(), 1000, false, false,
                 ackTime, 0);
         cacheManager.addCache(memoryOnlyCache);

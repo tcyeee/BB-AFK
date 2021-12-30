@@ -6,8 +6,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 import top.tcyeee.utils.EhCacheUtil;
 
-import java.io.IOException;
-
 /**
  * 时间检测
  *
