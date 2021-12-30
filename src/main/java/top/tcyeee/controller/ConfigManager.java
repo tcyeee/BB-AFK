@@ -12,7 +12,7 @@ public class ConfigManager {
         Main.instance.reloadConfig();
     }
 
-    public static FileConfiguration getConfit() {
+    public static FileConfiguration getConfig() {
         return Main.instance.getConfig();
     }
 }

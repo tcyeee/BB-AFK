@@ -4,9 +4,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
+import top.tcyeee.controller.ConfigManager;
 import top.tcyeee.utils.EhCacheUtil;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 玩家进入服务器/移动 -> 设置为活跃状态(5分钟过期)
@@ -42,6 +44,7 @@ public class PlayListener implements Listener {
     // 玩家切换左右手事件
     @EventHandler
     public void event(PlayerSwapHandItemsEvent event) throws IOException {
+
     }
 
     // 玩家丢弃物品

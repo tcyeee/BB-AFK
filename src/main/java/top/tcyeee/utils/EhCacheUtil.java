@@ -4,6 +4,7 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import org.springframework.stereotype.Component;
+import top.tcyeee.controller.ConfigManager;
 
 import java.io.InputStream;
 import java.util.HashSet;
@@ -31,8 +32,9 @@ public final class EhCacheUtil {
         afkCache = cacheManager.getCache(status.afk.name());
 
         // 创建活跃缓存
+        long ackTime = ConfigManager.getConfig().getLong("afk-gift-cycle");
         Cache memoryOnlyCache = new Cache(status.active.name(), 1000, false, false,
-                1, 1);
+                ackTime, 0);
         cacheManager.addCache(memoryOnlyCache);
         activeCache = cacheManager.getCache(status.active.name());
     }

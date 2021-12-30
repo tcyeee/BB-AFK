@@ -1,14 +1,16 @@
 package top.tcyeee;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+import top.tcyeee.controller.ConfigManager;
 import top.tcyeee.listener.PlayListener;
 import top.tcyeee.utils.EhCacheUtil;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public final class Main extends JavaPlugin {
     public static Main instance;
@@ -16,6 +18,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
         System.out.println("plugin benben start success !");
 
         // 添加轮询任务
@@ -44,6 +47,7 @@ public final class Main extends JavaPlugin {
 
 
     private void checkUserStatus() {
+        long ackTime = ConfigManager.getConfig().getLong("afk-time");
         // 1.找到挂机玩家, 加入挂机缓存 因为ehcache不会删除不活跃获取元素的特性, 这里需要直接查询, 如果value为null, 则表示超时
         Set<String> active = EhCacheUtil.keys(EhCacheUtil.status.active);
         active.forEach(uuid -> {
@@ -51,7 +55,8 @@ public final class Main extends JavaPlugin {
             if (player == null) {
                 player = getServer().getPlayer(UUID.fromString(uuid));
                 if (player != null) {
-                    player.sendMessage(ChatColor.RED + "你挂机了");
+                    getLogger().info("当前有" + player.getDisplayName() + "人挂机");
+                    getLogger().info(EhCacheUtil.keys(EhCacheUtil.status.afk).size() + "");
                     EhCacheUtil.set(EhCacheUtil.status.afk, player.getUniqueId().toString(), player);
                 }
             } else {
@@ -61,17 +66,19 @@ public final class Main extends JavaPlugin {
         });
 
         // 2.查询所有挂机玩家挂机时间, 距离现在为5的整数倍, 则给予经验和金币
-        int currentMin = Calendar.getInstance().get(Calendar.SECOND);
-        if (currentMin % 5 == 0) {
+        if ((System.currentTimeMillis() / 1000) % ackTime == 0) {
             Set<String> afk = EhCacheUtil.keys(EhCacheUtil.status.afk);
-            System.out.println("当前有" + afk.size() + "人挂机");
-            afk.forEach(uuid -> {
-                Player player = EhCacheUtil.get(EhCacheUtil.status.afk, uuid);
-                if (player != null) {
-                    player.sendMessage(ChatColor.BLUE + "给你亿点经验");
-                    player.giveExp(10);
-                }
-            });
+            afk.forEach(uuid -> gift(EhCacheUtil.get(EhCacheUtil.status.afk, uuid)));
+        }
+    }
+
+    // 给与奖励
+    private static void gift(Player player) {
+        int ackexp = ConfigManager.getConfig().getInt("afk-gift-exp");
+        List<?> list = ConfigManager.getConfig().getList("afk-gift-excloud");
+        boolean excloud = list != null && list.size() > 0 && list.contains(player.getDisplayName());
+        if (player != null && !excloud) {
+            player.giveExp(ackexp);
         }
     }
 }
