@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * 缓存工具类
@@ -31,9 +30,15 @@ public final class EhCacheUtil {
         cacheManager = CacheManager.create(resourceAsStream);
         activeCache = cacheManager.getCache(status.active.name());
         afkCache = cacheManager.getCache(status.afk.name());
+
+        // 创建活跃缓存
+        Cache memoryOnlyCache = new Cache(status.active.name(), 1000, false, false,
+                1, 1);
+        cacheManager.addCache(memoryOnlyCache);
+        activeCache = cacheManager.getCache(status.active.name());
     }
 
-    /* 玩家状态 */
+    /* 根据玩家状态划分的缓存分区 */
     public enum status {
         afk, active
     }
@@ -68,17 +73,16 @@ public final class EhCacheUtil {
 
 
     /**
-     * 从挂机缓存池中移除
+     * 获取玩家信息
      *
      * @param uuid 脱离挂机状态的玩家的UUID
      * @return 挂机玩家
      */
-    public static Player getAfk(String uuid) {
+    public static Player getPlayer(status status, String uuid) {
         Element element = afkCache.get(uuid);
         boolean notNull = element != null && element.getObjectValue() != null;
         return notNull ? (Player) element.getObjectValue() : null;
     }
-
 
     /**
      * 根据玩家状态查看所有此状态玩家
@@ -91,6 +95,7 @@ public final class EhCacheUtil {
         return new HashSet<String>(cache.getKeys());
     }
 
+    /*********************************************************************************************************************/
 
     // 存值
     public static void set(String key, String value) {

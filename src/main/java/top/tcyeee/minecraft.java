@@ -44,10 +44,10 @@ public final class minecraft extends JavaPlugin {
 
 
     private void checkUserStatus() {
-        // 1.选择挂机玩家, 加入挂机缓存 因为ehcache不会删除不活跃获取元素的特性, 这里需要直接查询, 如果value为null, 则表示超时
+        // 1.找到挂机玩家, 加入挂机缓存 因为ehcache不会删除不活跃获取元素的特性, 这里需要直接查询, 如果value为null, 则表示超时
         Set<String> active = EhCacheUtil.findAll(EhCacheUtil.status.active);
         active.forEach(uuid -> {
-            Player player = EhCacheUtil.get(uuid);
+            Player player = EhCacheUtil.getPlayer(EhCacheUtil.status.active, uuid);
             if (player == null) {
                 player = getServer().getPlayer(UUID.fromString(uuid));
                 if (player != null) {
@@ -66,7 +66,7 @@ public final class minecraft extends JavaPlugin {
             Set<String> afk = EhCacheUtil.findAll(EhCacheUtil.status.afk);
             System.out.println("当前有" + afk.size() + "人挂机");
             afk.forEach(uuid -> {
-                Player player = EhCacheUtil.getAfk(uuid);
+                Player player = EhCacheUtil.getPlayer(EhCacheUtil.status.afk, uuid);
                 if (player != null) {
                     player.sendMessage(ChatColor.BLUE + "给你亿点经验");
                     player.giveExp(10);
