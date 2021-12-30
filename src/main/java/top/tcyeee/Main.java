@@ -45,28 +45,28 @@ public final class Main extends JavaPlugin {
 
     private void checkUserStatus() {
         // 1.找到挂机玩家, 加入挂机缓存 因为ehcache不会删除不活跃获取元素的特性, 这里需要直接查询, 如果value为null, 则表示超时
-        Set<String> active = EhCacheUtil.findAll(EhCacheUtil.status.active);
+        Set<String> active = EhCacheUtil.keys(EhCacheUtil.status.active);
         active.forEach(uuid -> {
-            Player player = EhCacheUtil.getPlayer(EhCacheUtil.status.active, uuid);
+            Player player = EhCacheUtil.get(EhCacheUtil.status.active, uuid);
             if (player == null) {
                 player = getServer().getPlayer(UUID.fromString(uuid));
                 if (player != null) {
                     player.sendMessage(ChatColor.RED + "你挂机了");
-                    EhCacheUtil.setAfk(player);
+                    EhCacheUtil.set(EhCacheUtil.status.afk, player.getUniqueId().toString(), player);
                 }
             } else {
                 // 删除挂机状态
-                EhCacheUtil.back(player);
+                EhCacheUtil.del(EhCacheUtil.status.afk, player.getUniqueId().toString());
             }
         });
 
         // 2.查询所有挂机玩家挂机时间, 距离现在为5的整数倍, 则给予经验和金币
         int currentMin = Calendar.getInstance().get(Calendar.SECOND);
         if (currentMin % 5 == 0) {
-            Set<String> afk = EhCacheUtil.findAll(EhCacheUtil.status.afk);
+            Set<String> afk = EhCacheUtil.keys(EhCacheUtil.status.afk);
             System.out.println("当前有" + afk.size() + "人挂机");
             afk.forEach(uuid -> {
-                Player player = EhCacheUtil.getPlayer(EhCacheUtil.status.afk, uuid);
+                Player player = EhCacheUtil.get(EhCacheUtil.status.afk, uuid);
                 if (player != null) {
                     player.sendMessage(ChatColor.BLUE + "给你亿点经验");
                     player.giveExp(10);
