@@ -1,20 +1,24 @@
 package top.tcyeee;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 import top.tcyeee.listener.PlayListener;
 import top.tcyeee.utils.EhCacheUtil;
 
 import java.util.*;
 
-public final class minecraft extends JavaPlugin {
+public final class Main extends JavaPlugin {
+    public static Main instance;
 
     @Override
     public void onEnable() {
+        instance = this;
+
         // 添加轮询任务
         schedule();
-
         System.out.println("plugin benben start success !");
 
         // 添加监听
@@ -34,12 +38,8 @@ public final class minecraft extends JavaPlugin {
      * 2.查询挂机缓存, 挂机时间与当前时间差值为 n 的倍数, 则给与经验x,金币x
      */
     public void schedule() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            public void run() {
-                checkUserStatus();
-            }
-        }, 1000, 1000);
+        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        scheduler.scheduleSyncRepeatingTask(this, this::checkUserStatus, 0L, 20L);
     }
 
 

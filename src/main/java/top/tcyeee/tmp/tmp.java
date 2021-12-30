@@ -1,6 +1,6 @@
 package top.tcyeee.tmp;
 
-import top.tcyeee.utils.EhCacheUtil;
+import java.io.*;
 
 /**
  * @author tcyeee
@@ -8,19 +8,32 @@ import top.tcyeee.utils.EhCacheUtil;
  */
 public class tmp {
 
-    public static void main(String[] args) throws InterruptedException {
-        EhCacheUtil.set("key", "value");
+    public static void main(String[] args) {
 
-//        for (int i = 0; i < 5; i++) {
-//            System.out.println(i + 1);
-
-
-            Thread.sleep(3000);
+//        try {
+//            int len = 0;
+//            FileReader fr = new FileReader("");
+//            BufferedReader br = new BufferedReader(fr);
+//            while((len=br.read()) != -1) {
+//                String configInfo = br.readLine();
+//                if(configInfo != null && !(configInfo.contains("##"))) {  //如果读取的内容不为空或者不是注释，则执行下面语句
+//                    //System.out.println(configInfo);
+//                    String[] configArray = configInfo.split("=");
+//                    //System.out.println(configArray[0]+configArray[1]);
+//                    configMap.put(configArray[0], configArray[1]);
+//                    //System.out.println(configArray[0].toString()+"="+configArray[1]);
+//                }
+//            }
+//            if(br != null) {
+//                br.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
 //        }
-
-        String value = EhCacheUtil.get("key");
-        System.out.println(value);
-
 
     }
 }
