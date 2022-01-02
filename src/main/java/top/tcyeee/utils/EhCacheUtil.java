@@ -3,7 +3,6 @@ package top.tcyeee.utils;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import org.springframework.stereotype.Component;
 import top.tcyeee.controller.ConfigManager;
 
 import java.io.InputStream;
@@ -17,7 +16,6 @@ import java.util.Set;
  * @author tcyeee
  * @date 2021/12/24 13:19
  */
-@Component
 @SuppressWarnings("all")
 public final class EhCacheUtil {
 
