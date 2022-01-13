@@ -68,6 +68,16 @@
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- cmi -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>cmi</artifactId>
+            <version>9.1.0.1</version>
+            <systemPath>${project.basedir}/lib/CMI9.1.0.1.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+
         <!-- 缓存 -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
