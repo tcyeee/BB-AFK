@@ -9,9 +9,11 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getLogger().info("🎉🎉plugin benben start success !!🎉🎉");
+
         instance = this;
         saveDefaultConfig();
-        System.out.println("plugin benben start success !");
+
 
         // 添加轮询任务
         AfkServer.schedule();
