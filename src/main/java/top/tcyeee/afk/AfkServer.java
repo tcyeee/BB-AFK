@@ -37,9 +37,9 @@ public final class AfkServer {
         // 1. 获取所有在线玩家,同时比对是否为活跃玩家
         Collection<? extends Player> onlinePlayers = Main.instance.getServer().getOnlinePlayers();
         onlinePlayers.forEach(player -> {
-            // 2.挂机玩家每间隔特定秒给奖励
-            if (!AfkCache.isActive(player.getUniqueId())
-                    && (System.currentTimeMillis() / 1000) % ackCycle == 0) {
+            // 2.挂机玩家经过特定时间间隔以后,可以获取奖励
+            long afkSecond = BenBenPlayerMap.lastReflushTime(player.getUniqueId());
+            if (afkSecond > 0 && afkSecond % ackCycle == 0) {
                 gift(player);
             }
         });

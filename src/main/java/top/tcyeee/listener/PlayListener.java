@@ -6,7 +6,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-import top.tcyeee.afk.AfkCache;
+import top.tcyeee.afk.BenBenPlayerMap;
 
 /**
  * 时间检测
@@ -19,13 +19,13 @@ public class PlayListener implements Listener {
     // 玩家移动事件 => 设为活跃
     @EventHandler
     public void event(PlayerMoveEvent event) {
-        AfkCache.add(event.getPlayer());
+        BenBenPlayerMap.add(event.getPlayer());
     }
 
     // 进入服务器 => 设为活跃
     @EventHandler
     public void event(PlayerJoinEvent event) {
-        AfkCache.add(event.getPlayer());
+        BenBenPlayerMap.add(event.getPlayer());
     }
 
     // ------------------------------------ test -----------------------------------------------------
