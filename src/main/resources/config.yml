@@ -4,7 +4,7 @@ afk-time: 1
 afk-gift-cycle: 1
 # 挂机奖励 : n点经验值
 afk-gift-exp: 10
-# 挂机奖励黑名单: 写上名字以后,将无法再获取奖励
+# 挂机奖励黑名单: 写上名字的玩家,即便挂机也不会获得奖励
 afk-gift-excloud:
   - 'player1'
   - 'player2'

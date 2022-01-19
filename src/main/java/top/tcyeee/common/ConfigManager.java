@@ -1,4 +1,4 @@
-package top.tcyeee.controller;
+package top.tcyeee.common;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import top.tcyeee.Main;
@@ -8,10 +8,6 @@ import top.tcyeee.Main;
  * @date 2021/12/30 19:20
  */
 public class ConfigManager {
-    public static void reloadConfig() {
-        Main.instance.reloadConfig();
-    }
-
     public static FileConfiguration getConfig() {
         return Main.instance.getConfig();
     }

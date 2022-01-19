@@ -1,12 +1,12 @@
 package top.tcyeee.listener;
 
-import com.Zrips.CMI.events.CMIAfkEnterEvent;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.*;
-import top.tcyeee.Main;
-import top.tcyeee.utils.EhCacheUtil;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import top.tcyeee.afk.AfkCache;
 
 /**
  * 时间检测
@@ -15,36 +15,18 @@ import top.tcyeee.utils.EhCacheUtil;
  * @date 2021/12/23 16:36
  */
 public class PlayListener implements Listener {
-    public static Main main = Main.instance;
 
     // 玩家移动事件 => 设为活跃
     @EventHandler
     public void event(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-        EhCacheUtil.set(EhCacheUtil.status.active, player.getUniqueId().toString(), player);
-    }
-
-    // 玩家afk事件
-    @EventHandler
-    public void event(CMIAfkEnterEvent event) {
-        main.getLogger().warning("========================");
-        main.getLogger().warning("======= 开启AFK模式 =====");
-        main.getLogger().warning("========================");
+        AfkCache.add(event.getPlayer());
     }
 
     // 进入服务器 => 设为活跃
     @EventHandler
     public void event(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        EhCacheUtil.set(EhCacheUtil.status.active, player.getUniqueId().toString(), player);
+        AfkCache.add(event.getPlayer());
     }
-
-    // 退出服务器 => 删除挂机
-    @EventHandler
-    public void event(PlayerQuitEvent event) {
-        EhCacheUtil.del(EhCacheUtil.status.afk, event.getPlayer().getUniqueId().toString());
-    }
-
 
     // ------------------------------------ test -----------------------------------------------------
 
