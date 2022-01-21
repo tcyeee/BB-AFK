@@ -2,7 +2,6 @@ package top.tcyeee.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -33,11 +32,5 @@ public class PlayListener implements Listener {
     // 玩家切换左右手事件
     @EventHandler
     public void event(PlayerSwapHandItemsEvent event) {
-
-    }
-
-    // 玩家丢弃物品
-    @EventHandler
-    public void event(PlayerDropItemEvent event) {
     }
 }

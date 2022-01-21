@@ -10,6 +10,8 @@ import top.tcyeee.common.ConfigManager;
 import java.util.Collection;
 import java.util.List;
 
+import static top.tcyeee.Main.econ;
+
 /**
  * 用于处理挂机奖励的服务类
  *
@@ -53,6 +55,12 @@ public final class AfkServer {
         if (player != null && !excloud) {
             player.sendMessage(ChatColor.GREEN + "[测试] 发放挂机奖励..");
             player.giveExp(ackexp);
+
+
+//            econ.depositPlayer(event.getPlayer(), 1.05);
+//            double balance = econ.getBalance(event.getPlayer());
+//            event.getPlayer().sendMessage("为你添加了1.05金币,当前金币为" + balance + "元");
+
         }
     }
 }

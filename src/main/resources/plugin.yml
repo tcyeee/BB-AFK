@@ -4,3 +4,4 @@ main: top.tcyeee.Main
 api-version: 1.15
 authors: [ tcyeee ]
 description: just demo
+depend: [Vault]
