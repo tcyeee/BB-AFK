@@ -1,10 +1,14 @@
 package top.tcyeee;
 
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.tcyeee.afk.AfkServer;
+import top.tcyeee.afk.BenBenPlayerMap;
 import top.tcyeee.listener.PlayListener;
+
+import java.util.Collection;
 
 public final class Main extends JavaPlugin {
     public static Main instance;
@@ -12,11 +16,16 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        long start = System.currentTimeMillis();
+
         instance = this;
         saveDefaultConfig();
 
         // 添加轮询任务
         AfkServer.schedule();
+
+        //插件装载的时候,更新一次在线玩家
+        Main.instance.getServer().getOnlinePlayers().forEach(BenBenPlayerMap::add);
 
         // 添加监听
         getServer().getPluginManager().registerEvents(new PlayListener(), this);
@@ -30,6 +39,7 @@ public final class Main extends JavaPlugin {
         }
 
         getLogger().info("🎉🎉plugin benben start success !!🎉🎉");
+        getLogger().info("elapsed timeMillis " + (System.currentTimeMillis() - start) + " timeMillis!");
     }
 
     @Override
