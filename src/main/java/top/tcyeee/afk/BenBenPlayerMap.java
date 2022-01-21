@@ -31,7 +31,7 @@ public final class BenBenPlayerMap {
      * @return 0: 未挂机  >0:正常挂机时长
      */
     public static long lastReflushTime(UUID uid) {
-        final long ackTime = ConfigManager.getConfig().getLong("afk-time");
+        final long ackTime = ConfigManager.getConfig().getLong("afk.scope-time");
         if (map.containsKey(uid)) {
             Long lastReflush = map.get(uid);
             long lag = (System.currentTimeMillis() - lastReflush) / 1000;

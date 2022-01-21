@@ -34,7 +34,7 @@ public final class AfkServer {
 
     // 计算挂机玩家
     private static void checkUserStatus() {
-        long ackCycle = ConfigManager.getConfig().getLong("afk-gift-cycle");
+        long ackCycle = ConfigManager.getConfig().getLong("afk.gift-cycle");
 
         // 1. 获取所有在线玩家,同时比对是否为活跃玩家
         Collection<? extends Player> onlinePlayers = Main.instance.getServer().getOnlinePlayers();
@@ -49,8 +49,8 @@ public final class AfkServer {
 
     // 给与奖励
     private static void gift(Player player) {
-        int ackexp = ConfigManager.getConfig().getInt("afk-gift-exp");
-        List<?> list = ConfigManager.getConfig().getList("afk-gift-excloud");
+        int ackexp = ConfigManager.getConfig().getInt("afk.gift-exp");
+        List<?> list = ConfigManager.getConfig().getList("afk.gift-excloud");
         boolean excloud = list != null && list.size() > 0 && list.contains(player.getDisplayName());
         if (player != null && !excloud) {
             player.sendMessage(ChatColor.GREEN + "[测试] 发放挂机奖励..");

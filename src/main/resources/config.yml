@@ -1,12 +1,13 @@
-# 玩家无动作 n 秒后视为挂机
-afk-time: 1
-# 挂机玩家 n 秒给与一次奖励
-afk-gift-cycle: 1
-# 挂机奖励-经验 : n点经验值
-afk-gift-exp: 10
-# 挂机奖励-经济 : n点云币
-afk-gift-vault: 10
-# 挂机奖励黑名单: 写上名字的玩家,即便挂机也不会获得奖励
-afk-gift-excloud:
-  - 'player1'
-  - 'player2'
+afk:
+  # 玩家无动作 n 秒后视为挂机
+  scope-time: 1
+  # 挂机玩家 n 秒给与一次奖励
+  gift-cycle: 1
+  # 挂机奖励-经验 : n点经验值
+  gift-exp: 10
+  # 挂机奖励-经济 : n点云币
+  gift-vault: 10
+  # 挂机奖励黑名单: 写上名字的玩家,即便挂机也不会获得奖励
+  gift-excloud:
+    - 'player1'
+    - 'player2'
