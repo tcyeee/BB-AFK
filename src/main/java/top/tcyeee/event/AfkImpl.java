@@ -24,8 +24,7 @@ public class AfkImpl implements AfkEvent {
     String title = ConfigManager.getConfig().getString("afk.title.main");
     String subTitle = ConfigManager.getConfig().getString("afk.title.sub");
     int scopeEndSecond = ConfigManager.getConfig().getInt("afk.scope-end");
-    PotionEffect effect = new PotionEffect(PotionEffectType.BLINDNESS, scopeEndSecond * 20,
-            2, true, false, false);
+    PotionEffect effect = new PotionEffect(PotionEffectType.BLINDNESS, scopeEndSecond * 20, 2, true, false, false);
 
     /**
      * 开始挂机
@@ -73,7 +72,6 @@ public class AfkImpl implements AfkEvent {
 
     @Override
     public void afkCycle(Player player) {
-        // 检查黑名单
         boolean excloud = list != null && list.size() > 0 && list.contains(player.getDisplayName());
 
         if (player != null && !excloud) {
