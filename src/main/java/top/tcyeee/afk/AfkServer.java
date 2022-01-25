@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 import top.tcyeee.Main;
+import top.tcyeee.common.BaseUtils;
 import top.tcyeee.common.ConfigManager;
 import top.tcyeee.event.AfkEvent;
 
@@ -44,14 +45,21 @@ public final class AfkServer {
     private void checkUserStatus() {
         long ackCycle = ConfigManager.getConfig().getLong("afk.gift.cycle");
         long scopeEnd = ConfigManager.getConfig().getLong("afk.scope-end");
+        int particle = ConfigManager.getConfig().getInt("afk.particle", 0);
 
         Main.instance.getServer().getOnlinePlayers().forEach(player -> {
+            // 开始挂机触发
             long afkSecond = BenBenPlayerMap.lastReflushTime(player.getUniqueId());
             if (afkSecond == 1) {
                 afkEvent.afkStart(player);
             }
 
-            // 4.挂机玩家经过特定时间间隔以后,可以获取奖励
+            // 挂机玩家每秒触发
+            if (afkSecond > 0) {
+                BaseUtils.spawn(player, particle);
+            }
+
+            // 挂机玩家特定周期触发
             if (afkSecond > 0 && afkSecond % ackCycle == 0 && afkSecond < scopeEnd) {
                 afkEvent.afkCycle(player);
             }

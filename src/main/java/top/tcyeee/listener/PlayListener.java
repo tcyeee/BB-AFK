@@ -1,6 +1,5 @@
 package top.tcyeee.listener;
 
-import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -9,6 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import top.tcyeee.afk.AfkServer;
 import top.tcyeee.afk.BenBenPlayerMap;
+import top.tcyeee.common.BaseUtils;
 import top.tcyeee.event.AfkImpl;
 
 /**
