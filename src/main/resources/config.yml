@@ -1,6 +1,7 @@
 afk:
-  # 玩家无动作 n 秒后视为挂机
-  scope-time: 1
+  scope-start: 30      # 玩家无动作 n 秒后视为挂机
+  scope-end: 43200     # 超过 n 秒后,则不再发放奖励
+
   # 挂机奖励黑名单: 写上名字的玩家,即便挂机也不会获得奖励
   blacklist:
     - 'player1'

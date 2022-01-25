@@ -7,7 +7,6 @@ import org.bukkit.scheduler.BukkitScheduler;
 import top.tcyeee.Main;
 import top.tcyeee.common.ConfigManager;
 
-import java.util.Collection;
 import java.util.List;
 
 import static top.tcyeee.Main.econ;
@@ -18,7 +17,7 @@ import static top.tcyeee.Main.econ;
  * @author tcyeee
  * @date 2021/12/30 21:52
  */
-@SuppressWarnings("unused")
+//@SuppressWarnings("unused")
 public final class AfkServer {
 
     /**
@@ -35,13 +34,15 @@ public final class AfkServer {
     // 计算挂机玩家
     private static void checkUserStatus() {
         long ackCycle = ConfigManager.getConfig().getLong("afk.gift.cycle");
+        long scopeEnd = ConfigManager.getConfig().getLong("afk.scope-end");
 
         // 1. 获取所有在线玩家,同时比对是否为活跃玩家
-        Collection<? extends Player> onlinePlayers = Main.instance.getServer().getOnlinePlayers();
-        onlinePlayers.forEach(player -> {
+        Main.instance.getServer().getOnlinePlayers().forEach(player -> {
             // 2.挂机玩家经过特定时间间隔以后,可以获取奖励
             long afkSecond = BenBenPlayerMap.lastReflushTime(player.getUniqueId());
-            if (afkSecond > 0 && afkSecond % ackCycle == 0) {
+            if (afkSecond > 0
+                    && afkSecond % ackCycle == 0
+                    && afkSecond < scopeEnd) {
                 gift(player);
             }
         });
