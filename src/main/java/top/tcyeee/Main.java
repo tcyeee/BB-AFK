@@ -14,19 +14,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        long start = System.currentTimeMillis();
         instance = this;
-
         saveDefaultConfig();
-
-        // 添加轮询任务
-        new AfkServer(new AfkImpl()).schedule();
-
-        //插件装载的时候,更新一次在线玩家
-        Main.instance.getServer().getOnlinePlayers().forEach(BenBenPlayerMap::add);
-
-        // 添加监听
-        getServer().getPluginManager().registerEvents(new PlayListener(), this);
 
         // [校验] 必须装载有经济插件
         boolean setVaultStatus = setVaultPlugin();
@@ -36,8 +25,18 @@ public final class Main extends JavaPlugin {
             return;
         }
 
-        getLogger().info("🎉🎉plugin benben start success !!🎉🎉");
-        getLogger().info("elapsed timeMillis " + (System.currentTimeMillis() - start) + " timeMillis!");
+        //插件装载的时候,更新一次在线玩家
+        Main.instance.getServer().getOnlinePlayers().forEach(player -> {
+            player.resetTitle();
+            BenBenPlayerMap.add(player);
+        });
+
+        // 添加轮询任务
+        new AfkServer(new AfkImpl()).schedule();
+        // 添加监听
+        getServer().getPluginManager().registerEvents(new PlayListener(), this);
+
+        getLogger().info(">>>>>>>>   plugin benben start success !!   <<<<<<");
     }
 
     @Override
