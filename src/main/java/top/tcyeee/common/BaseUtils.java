@@ -29,7 +29,7 @@ public final class BaseUtils {
         for (int i = 0; i < count; i++) {
             x = r * Math.sin(m * i);
             z = r * Math.cos(m * i);
-            world.spawnParticle(Particle.NOTE, player.getLocation().add(x, Math.random() * 2, z), 1);
+            world.spawnParticle(Particle.ENCHANTMENT_TABLE, player.getLocation().add(x, Math.random() * 2, z), 1);
         }
     }
 }
