@@ -3,6 +3,7 @@ package top.tcyeee;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import top.tcyeee.event.AfkImpl;
 import top.tcyeee.afk.AfkServer;
 import top.tcyeee.afk.BenBenPlayerMap;
 import top.tcyeee.listener.PlayListener;
@@ -14,12 +15,12 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         long start = System.currentTimeMillis();
-
         instance = this;
+
         saveDefaultConfig();
 
         // 添加轮询任务
-        AfkServer.schedule();
+        new AfkServer(new AfkImpl()).schedule();
 
         //插件装载的时候,更新一次在线玩家
         Main.instance.getServer().getOnlinePlayers().forEach(BenBenPlayerMap::add);

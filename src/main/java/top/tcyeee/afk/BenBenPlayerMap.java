@@ -14,14 +14,31 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class BenBenPlayerMap {
     static ConcurrentHashMap<UUID, Long> map;
+    final static long ackTime = ConfigManager.getConfig().getLong("afk.scope-start");
 
     static {
         map = new ConcurrentHashMap<>();
     }
 
-    // 设置为活跃玩家
+    // 存值/刷新 玩家最后活跃时间
     public static void add(Player player) {
         map.put(player.getUniqueId(), System.currentTimeMillis());
+    }
+
+    // 存值/刷新 玩家最后活跃时间
+    public static void del(Player player) {
+        map.remove(player.getUniqueId());
+    }
+
+
+    // 检查玩家是否为挂机状态
+    public static boolean isAkf(Player player) {
+        UUID uid = player.getUniqueId();
+        if (!map.containsKey(uid)) {
+            return false;
+        }
+        long lag = (System.currentTimeMillis() - map.get(uid)) / 1000;
+        return lag > ackTime;
     }
 
     /**
@@ -31,7 +48,6 @@ public final class BenBenPlayerMap {
      * @return 0: 未挂机  >0:正常挂机时长
      */
     public static long lastReflushTime(UUID uid) {
-        final long ackTime = ConfigManager.getConfig().getLong("afk.scope-start");
         if (map.containsKey(uid)) {
             Long lastReflush = map.get(uid);
             long lag = (System.currentTimeMillis() - lastReflush) / 1000;
