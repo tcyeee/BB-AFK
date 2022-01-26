@@ -1,4 +1,4 @@
-![image-20220126101902240](http://img.tcyeee.top/typora/20220126101902.png)
+![i](./src/main/resources/img/logo.png)
 ![](https://img.shields.io/badge/minecraft-服务器插件-red.svg)&emsp;
 ![](https://img.shields.io/badge/📩-tcyeee@outlook.com-green.svg)&emsp;
 ![](https://img.shields.io/badge/QQ群-1054143983-green.svg)&emsp;
@@ -23,8 +23,8 @@
 
 只保留最近三个版本
 
-* **verison_0.0.3**  ![](http://img.tcyeee.top/typora/20220125174940.svg) [点击下载](http://img.tcyeee.top/display/BenBenAfk-0.0.3.jar)
-* **verison_0.0.2**  ![](http://img.tcyeee.top/typora/20220125174940.svg) [点击下载](http://img.tcyeee.top/display/BenBenAfk-0.02.jar)
+* **verison_0.0.3**  👉 [点击下载](http://img.tcyeee.top/display/BenBenAfk-0.0.3.jar)
+* **verison_0.0.2**  👉 [点击下载](http://img.tcyeee.top/display/BenBenAfk-0.02.jar)
 
 <br><br>
 
