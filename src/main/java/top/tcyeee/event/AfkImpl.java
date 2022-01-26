@@ -3,7 +3,6 @@ package top.tcyeee.event;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import top.tcyeee.common.BaseUtils;
 import top.tcyeee.common.ConfigManager;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class AfkImpl implements AfkEvent {
     String title = ConfigManager.getConfig().getString("afk.title.main");
     String subTitle = ConfigManager.getConfig().getString("afk.title.sub");
     int scopeEndSecond = ConfigManager.getConfig().getInt("afk.scope-end");
-    PotionEffect effect = new PotionEffect(PotionEffectType.BLINDNESS, scopeEndSecond * 20, 1, true, false, false);
+    PotionEffect effect = new PotionEffect(PotionEffectType.BLINDNESS, scopeEndSecond * 20, 0, true, false, false);
 
     /**
      * 开始挂机
